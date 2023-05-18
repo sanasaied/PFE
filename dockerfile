@@ -1,15 +1,23 @@
 FROM node:16
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set the working directory inside the container
+WORKDIR /app
 
-# Install app dependencies
+# Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
+# Install the project dependencies
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application code to the container
 COPY . .
 
+# Expose the port on which the frontend will run
+EXPOSE 3001
 
-CMD [ "node", "server.js" ]
+# Build the frontend app
+
+RUN npm run build
+
+# Serve the built app with a static server
+CMD [ "npm", "run", "serve" ]
