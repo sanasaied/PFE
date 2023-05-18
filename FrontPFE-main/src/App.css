@@ -1,0 +1,16 @@
+#navRow{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.main-menu nav ul li  a{
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px !important;
+    font-size: 14px !important;
+}
+
+ 
