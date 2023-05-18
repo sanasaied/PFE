@@ -1,11 +1,11 @@
 version: '3'
 services:
-  app:
+  backend:
     build: 
-      context: ./
-      dockerfile: dockerfile
+      context: ./BackPFE-main
+      dockerfile: Dockerfile
     volumes:
-      - .:/usr/src/app
+      - ./BackPFE-main:/usr/src/app
     ports:
       - "3000:3000"
     restart: on-failure
@@ -21,11 +21,18 @@ services:
       - "4000:4000"
     volumes:
       - database_volume:/var/lib/mongodb/data
-  #front: 
-    #image: frontnew
-    #container_name: frontend
-    #restart: on-failure
-    #ports:
-      #- "3001:3001"
+  frontend:
+    build:
+      context: ./FrontPFE-main
+      dockerfile: Dockerfile
+    volumes:
+      - ./FrontPFE-main:/usr/src/app/
+    ports:
+      - "3001:3001"
+    restart: on-failure
+    depends_on:
+      - backend
+    environment:
+      cors__domains: "http://localhost:3001"
 volumes:
   database_volume:
